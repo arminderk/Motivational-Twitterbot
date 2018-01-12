@@ -5,4 +5,7 @@
 * The bot can receive random quotes and post data in a set time-interval
 * Note: A config.js file must be created to connect to twitter 
 
-Technologies Used: Node.js, Twitter API, AJAX
+### Technologies Used: 
+* Node.js
+* [Twit](https://github.com/ttezel/twit)
+* AJAX
