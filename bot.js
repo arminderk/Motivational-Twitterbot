@@ -2,6 +2,7 @@
 var Twit = require('twit');
 var config = require('./config');
 var https = require('https');
+var url = require('url');
 var T = new Twit(config);
 
 /* Express */
@@ -18,16 +19,17 @@ app.set('views', path.join(__dirname, 'views'));
 /* Use static files */
 app.use(express.static(path.join(__dirname, 'html')));
 app.use(express.static(path.join(__dirname, 'css')));
+app.use(express.static(path.join(__dirname, '/')));
 
 app.get('/', function(req, res) {
   res.render('index');
 })
 
 /********** Get Request to Search Twitter **********/
-app.get('/tweets/get', function(req, res) {
+app.get('/tweets/get/:query/:number', function(req, res) {
   var tweets = [];
-  let query = req.query.query;
-  let numOfTweets = req.query.number;
+  let query = req.params.query;
+  let numOfTweets = req.params.number;
 
   var params = {
     q: query,
@@ -38,11 +40,11 @@ app.get('/tweets/get', function(req, res) {
   
   function gotData(err, data, response) {
     var tweet = data.statuses;
-    for(var i = 0; i<tweets.length; i++) {
+    for(var i = 0; i<tweet.length; i++) {
       tweets.push(tweet[i].text);
-      console.log(tweet[i].text);
+      // console.log(tweet[i].text);
     }
-    res.send({tweets: tweets})
+    res.json(tweets);
   }
 })
 
