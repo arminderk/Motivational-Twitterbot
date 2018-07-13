@@ -11,11 +11,6 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
 
-/* View Engine */
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-
 /* Use static files */
 app.use(express.static(path.join(__dirname, 'html')));
 app.use(express.static(path.join(__dirname, 'css')));
@@ -23,6 +18,10 @@ app.use(express.static(path.join(__dirname, '/')));
 
 app.get('/', function(req, res) {
   res.render('index');
+})
+
+app.get('/get.html', function(req, res) {
+  res.sendFile(__dirname + '/get.html');
 })
 
 /********** Get Request to Search Twitter **********/

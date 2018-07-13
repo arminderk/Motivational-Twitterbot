@@ -21,11 +21,11 @@
             
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
-                    </li>
                     <li class="nav-item">
-                            <a class="nav-link" href="/get.html">Get</a>
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                            <a class="nav-link" href="/get.html">Get<span class="sr-only">(current)</span></a>
                         </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/post.html">Post</a>
@@ -34,7 +34,31 @@
             </div>
         </nav>
 
-        <h1 class="text-center" id="title">TwitterBot</h1>
+        <h1 class="text-center" id="title">Get Tweets</h1>
+
+        <div class="container">
+            <div id="getRequest">
+                <form>
+                    <div class="form-group">
+                        <label for="query">Query</label>
+                        <input type="text" class="form-control" id="query" placeholder="Search for...">
+                    </div>
+                    <div class="form-group">
+                        <label for="numberOfTweets">Number of Tweets</label>
+                        <select class="form-control" id="number">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                            <option>40</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </form>
+                <button onclick="getTweets()" class="btn btn-success">GET</button>
+                <br><br>
+                <div id="displayTweets"></div>
+            </div>
+        </div>
 
         <!-- Boostrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
