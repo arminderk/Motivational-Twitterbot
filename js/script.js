@@ -23,3 +23,11 @@ function getTweets() {
             }
         });
 }
+
+function postTweets() {
+    fetch(`/tweets/post`)
+        .then(res => res.json())
+        .then(function(tweet) {
+            console.log(tweet.quote);
+        })
+}

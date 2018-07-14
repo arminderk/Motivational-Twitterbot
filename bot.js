@@ -47,6 +47,37 @@ app.get('/tweets/get/:query/:number', function(req, res) {
   }
 })
 
+/***** Random Quote from External API *****/
+app.get(`/tweets/post`, function(req, res) {
+    https.get("https://talaikis.com/api/quotes/random/", (response) => {
+      let data = "";
+      response.on('data', (chunk) => {
+        data += chunk;
+      });
+      response.on('end', () => {
+        var parsed = JSON.parse(data);
+        var quote = '@QuoteoftheDay: "' + parsed.quote + '" - ' + parsed.author;
+        
+        var tweet = {
+          //status: r 
+          status: quote
+        }
+  
+        T.post('statuses/update', tweet, tweeted);
+        res.json({quote: parsed.quote, author: parsed.author});
+  
+        function tweeted(err, data, response) {
+          if (err) {
+            console.log("Something went wrong!");
+          }
+          else {
+            console.log("It's working!");
+          }
+        }
+      });
+    }).end();
+  })
+
 app.listen(3000, () => console.log("Listening on Port 3000"));
   
   
@@ -95,39 +126,3 @@ app.listen(3000, () => console.log("Listening on Port 3000"));
     
   /***** Selected random quote from array above *****/
   //  var r = "@QuoteoftheDay: " + quotes[Math.floor(Math.random() * quotes.length)];
-    
-    /***** Random Quote from External API *****/
-  //   https.get("https://talaikis.com/api/quotes/random/", (response) => {
-  //     let data = "";
-  //     response.on('data', (chunk) => {
-  //       data += chunk;
-  //     });
-  //     response.on('end', () => {
-  //       var parsed = JSON.parse(data);
-  //       var quote = '@QuoteoftheDay: "' + parsed.quote + '" - ' + parsed.author;
-        
-  //       var tweet = {
-  //         //status: r 
-  //         status: quote
-  //       }
-  
-  //       T.post('statuses/update', tweet, tweeted);
-  
-  //       function tweeted(err, data, response) {
-  //         if (err) {
-  //           console.log("Something went wrong!");
-  //         }
-  //         else {
-  //           console.log("It's working");
-  //         }
-  //       }
-  //     });
-  //   }).end();  
-    
-  // }
-
-
-
-
-
-    
