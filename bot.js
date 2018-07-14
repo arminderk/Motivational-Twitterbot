@@ -47,6 +47,7 @@ app.get('/tweets/get/:query/:number', function(req, res) {
   }
 })
 
+
 /***** Random Quote from External API *****/
 app.get(`/tweets/post`, function(req, res) {
     https.get("https://talaikis.com/api/quotes/random/", (response) => {
@@ -63,17 +64,16 @@ app.get(`/tweets/post`, function(req, res) {
           status: quote
         }
   
-        T.post('statuses/update', tweet, tweeted);
-        res.json({quote: parsed.quote, author: parsed.author});
-  
-        function tweeted(err, data, response) {
-          if (err) {
-            console.log("Something went wrong!");
-          }
-          else {
-            console.log("It's working!");
-          }
-        }
+        T.post('statuses/update', tweet, function(err, data, response) {
+            if (err) {
+              console.log("Something went wrong!");
+              res.json({alert: "Fail"});
+            }
+            else {
+              console.log("It's working!");
+              res.json({quote: parsed.quote, author: parsed.author, alert: "Success"});
+            }
+        });
       });
     }).end();
   })

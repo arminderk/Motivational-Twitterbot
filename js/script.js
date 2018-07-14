@@ -25,9 +25,45 @@ function getTweets() {
 }
 
 function postTweets() {
+    let alert = $('#alert');
+    let displayTweet = $('#displayTweet');
+
     fetch(`/tweets/post`)
         .then(res => res.json())
         .then(function(tweet) {
-            console.log(tweet.quote);
+            alert.empty();
+            displayTweet.empty();
+            if(tweet.alert == "Success") {
+                alert.append(`
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Tweet Posted Successfully!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> 
+                `);
+                displayTweet.append(`
+                    <div class="card" id="tweet">
+                        <div class="card-header">
+                            Quote by ${tweet.author}
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <p>"<i>${tweet.quote}</i>"<p>   
+                            </blockquote>
+                        </div>
+                    </div>
+                `);
+            }
+            else {
+                alert.append(`
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Couldn't Post Tweet! Please try again.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> 
+                `);
+            }
         })
 }
