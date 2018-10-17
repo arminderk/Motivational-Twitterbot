@@ -1,6 +1,6 @@
 # Motivational-Twitterbot
 
-First Interactice TwitterBot
+First Interactive TwitterBot
 
 ### What Can it Do?
 * Get tweets from Twitter per the user's query 
