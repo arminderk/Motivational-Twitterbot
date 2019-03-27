@@ -50,14 +50,15 @@ app.get('/tweets/get/:query/:number', function(req, res) {
 
 /***** Random Quote from External API *****/
 app.get(`/tweets/post`, function(req, res) {
-    https.get("https://talaikis.com/api/quotes/random/", (response) => {
+    https.get("https://quotes.rest/qod", (response) => {
       let data = "";
       response.on('data', (chunk) => {
         data += chunk;
       });
       response.on('end', () => {
         var parsed = JSON.parse(data);
-        var quote = '@QuoteoftheDay: "' + parsed.quote + '" - ' + parsed.author;
+        var dataQuote = parsed.contents.quotes[0];
+        var quote = '@QuoteoftheDay: "' + dataQuote.quote + '" - ' + dataQuote.author;
         
         var tweet = {
           //status: r 
@@ -71,7 +72,7 @@ app.get(`/tweets/post`, function(req, res) {
             }
             else {
               console.log("It's working!");
-              res.json({quote: parsed.quote, author: parsed.author, alert: "Success"});
+              res.json({quote: dataQuote.quote, author: dataQuote.author, alert: "Success"});
             }
         });
       });
