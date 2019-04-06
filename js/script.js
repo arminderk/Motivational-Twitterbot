@@ -36,7 +36,7 @@ function postTweets() {
             if(tweet.alert == "Success") {
                 alert.append(`
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Tweet Posted Successfully! Please click the <a href="https://twitter.com/thisIsJoe123">link</a> to see the posted tweet
+                        Tweet Posted Successfully! Please click the <a href="https://twitter.com/thisIsJoe123/with_replies">link</a> to see the posted tweet
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
